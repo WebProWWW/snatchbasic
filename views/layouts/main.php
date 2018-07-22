@@ -53,7 +53,7 @@ AppAsset::register($this);
       </div><!--/.col-->
 
       <div class="col-12 col-md-auto order-sm-5 order-md-3">
-        <a class="btn btn-yell js-popup-cart" href="#popup-cart">
+        <a class="btn btn-yell js-popup-cart" href="javascript:;">
           <i class="fas fa-shopping-cart"></i>
           Корзина
           <span class="btn-items d-none js-store-count"></span>
@@ -107,7 +107,7 @@ AppAsset::register($this);
 </header>
 
 <div class="cart-fixed js-showonscroll">
-  <a class="ln-black js-popup-cart" href="#popup-cart">
+  <a class="ln-white js-popup-cart" href="#popup-cart">
     <i class="fas fa-shopping-cart em-12"></i>
     Корзина
     <span class="btn-items d-none js-store-count"></span>
@@ -212,12 +212,35 @@ AppAsset::register($this);
       </button>
     </div><!--/.col-->
     <div class="col-12 col-sm-6">
-      <a class="btn btn-red" href="">
+      <a class="btn btn-red js-popup-order" href="javascript:;">
         <i class="fas fa-truck"></i> Оформить заказ
       </a>
     </div><!--/.col-->
   </div><!--/.row-->
 </div>
+
+
+
+
+<!-- ОФОРМИТЬ ЗАКАЗ -->
+<div class="popup-400" id="popup-order">
+  <p class="itext em-12 bold">Оформление заказа</p>
+  <?= Html::beginForm(null, 'post', [
+    'class' => 'form mt-20 js-form-order',
+  ]) ?>
+    <div class="js-order-items">
+      <input type="hidden" name="order[1]['img']">
+      <input type="hidden" name="order[1]['size']">
+    </div>
+    <input class="form-input" type="text" name="name" placeholder="Имя" validate1="text">
+    <input class="form-input js-mask" mask="+7-999-999-99-99" type="text" name="phone" placeholder="Телефон" validate1="text">
+    <input class="form-input" type="text" name="email" placeholder="Email" validate1="email">
+    <button class="btn btn-yell form-btn js-form-progress" type="submit">Отправить</button>
+  <?= Html::endForm() ?>
+</div>
+
+
+
 
 
 <!-- КОРЗИНА ПУСТАЯ -->
@@ -247,6 +270,7 @@ AppAsset::register($this);
 
 <!-- ЗАКАЗАТЬ ПРАЙС -->
 <div class="popup-400" id="popup-price">
+  <p class="itext em-12 bold">Заказать прайс</p>
   <?= Html::beginForm(null, 'post', [
     'class' => 'form mt-20 js-form-callback',
   ]) ?>
@@ -255,13 +279,12 @@ AppAsset::register($this);
     <input class="form-input js-mask" mask="+7-999-999-99-99" type="text" name="phone" placeholder="Телефон" validate="text">
     <button class="btn btn-yell form-btn js-form-progress" type="submit">Отправить</button>
   <?= Html::endForm() ?>
-  <p class=""></p>
 </div>
 
 <!-- AJAX INFO -->
 <div id="js-form-success">
   <p class="itext text-center">
-    <span class="bold">Сообщение успешно доставлено.</span><br>
+    <span class="bold">Ваша заявка успешно оформлена.</span><br>
     Ближайшее время наш менеджер позвонит Вам<br>и ответит на вопросы.<br>
     <span class="bold">Благодарим вас за обращение!</span>
   </p>

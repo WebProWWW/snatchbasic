@@ -34,11 +34,17 @@ showPopupCart = () ->
 
 renderPopupCartItems = (store) ->
   $itemsView = $ '.js-popup-cart-items'
+  $inputsGroup = $ '.js-popup-cart-inputs'
   productsArr = store.getProducts()
   totalPrice = 0
-  itemsHtmlArr = for product in productsArr
+  itemsHtmlArr = []
+  # inputsHtmlArr = []
+  for product in productsArr
     totalPrice += product.count * product.price
-    """
+    # inputsHtmlArr.push """
+    #   <input type="hidden" name="productId[]" value="#{product.id}">
+    # """
+    itemsHtmlArr.push """
     <div class="popup-cart-item">
       <div class="row align-items-center">
         <div class="col-3">
@@ -77,13 +83,16 @@ renderPopupCartItems = (store) ->
     Итого: #{totalPrice} <i class="fas fa-ruble-sign"></i>
   </div>
   """
-
-  $itemsView.html('')
-
-  for itemHtml in itemsHtmlArr
-    $itemsView.append itemHtml
-
+  $itemsView.html ''
+  $itemsView.append itemsHtmlArr
   $itemsView.append totalPriceHtml
+  # $inputsGroup.html ''
+  # $inputsGroup.append inputsHtmlArr
+  on
+
+
+
+renderPopupOrder = (store) ->
 
 
 
@@ -92,9 +101,9 @@ renderPopupCartItems = (store) ->
 # INIT
 # - - - - - - - - - - - - - - - - -
 
-# $.fancybox.open
-#   src: '#popup-cart'
-#   type: 'inline'
+$.fancybox.open
+  src: '#popup-order'
+  type: 'inline'
 #   opts:
 #     modal: on
 #     smallBtn: 'auto'
@@ -124,6 +133,26 @@ new jQueryMailer '.js-form-callback',
   error: ($form) ->
     $.fancybox.open src: '#js-form-error'
     console.log 'Error: /api/mail-price.json'
+
+
+new jQueryMailer '.js-form-order',
+  action: '/api/order.json'
+  sendingStr: '<img class="form-loader" src="/img/loader.svg">'
+  success: ($form, data) ->
+    $form.trigger 'reset'
+    $.fancybox.close on
+    $.fancybox.open src: '#js-form-success'
+    # if data.status? and data.status is 1
+    #   $form.trigger 'reset'
+    #   $.fancybox.close on
+    #   $.fancybox.open src: '#js-form-success'
+    # else
+    #   $.fancybox.open src: '#js-form-error'
+    console.log data
+  error: ($form) ->
+    $.fancybox.open src: '#js-form-error'
+    console.log 'Error: /api/order.json'
+
 
 
 $('.js-mask').each (i, input) ->
@@ -165,6 +194,21 @@ $('.js-popup-cart').on 'click', (e) ->
     renderPopupCartItems cartStore
     showPopupCart()
   else
+    $.fancybox.open src: '#popup-cart-empty'
+  off
+
+
+
+$('.js-popup-order').on 'click', (e) ->
+  e.preventDefault()
+  if cartStore.getCount()
+    renderPopupOrder cartStore
+    $.fancybox.close on
+    $.fancybox.open
+      src: '#popup-order'
+      type: 'inline'
+  else
+    $.fancybox.close on
     $.fancybox.open src: '#popup-cart-empty'
   off
 

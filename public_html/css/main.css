@@ -64,7 +64,7 @@ a:active {
 .ln-white:hover {
   text-decoration: none;
   outline: none;
-  color: #d1d1d1;
+  color: #e6e6e6;
 }
 .ln-red {
   color: #dd2a1b;
@@ -648,21 +648,24 @@ a:active {
 .cart-fixed {
   display: block;
   margin: 0;
-  padding: 13px 25px;
+  padding: 13px 35px;
   position: fixed;
   top: -150px;
   right: 0px;
-  background: #fcda00;
+  background: #dd2a1b;
   opacity: 0;
   z-index: 10;
   -webkit-box-shadow: 0 0 15px 0 rgba(0,0,0,0.8);
           box-shadow: 0 0 15px 0 rgba(0,0,0,0.8);
+  border-radius: 0 0 0 4em;
   -webkit-transition: 0.16s all ease-in-out;
   transition: 0.16s all ease-in-out;
 }
 .cart-fixed .btn-items {
   position: static;
   display: inline-block;
+  background: #fcda00;
+  color: #000;
 }
 .cart-fixed.active {
   display: block;

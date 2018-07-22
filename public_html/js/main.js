@@ -5,7 +5,7 @@
 
 // START CLASS Cart
 // - - - - - - - - - - - - - - - - -
-var $, $cartStore, $showOnScroll, CartStorage, calculateCountPrice, cartStore, delay, jQueryMailer, renderPopupCartItems, showPopupCart, updateStoreCount;
+var $, $cartStore, $showOnScroll, CartStorage, calculateCountPrice, cartStore, delay, jQueryMailer, renderPopupCartItems, renderPopupOrder, showPopupCart, updateStoreCount;
 
 CartStorage = (function() {
   class CartStorage {
@@ -290,35 +290,39 @@ showPopupCart = function() {
 };
 
 renderPopupCartItems = function(store) {
-  var $itemsView, itemHtml, itemsHtmlArr, j, len, product, productsArr, totalPrice, totalPriceHtml;
+  var $inputsGroup, $itemsView, itemsHtmlArr, j, len, product, productsArr, totalPrice, totalPriceHtml;
   $itemsView = $('.js-popup-cart-items');
+  $inputsGroup = $('.js-popup-cart-inputs');
   productsArr = store.getProducts();
   totalPrice = 0;
-  itemsHtmlArr = (function() {
-    var j, len, results;
-    results = [];
-    for (j = 0, len = productsArr.length; j < len; j++) {
-      product = productsArr[j];
-      totalPrice += product.count * product.price;
-      results.push(`<div class="popup-cart-item">\n  <div class="row align-items-center">\n    <div class="col-3">\n      <img class="img-fluid" src="${product.img}">\n    </div><!--/.col-->\n    <div class="col-7 col-sm">\n      <div class="row">\n        <div class="col-12 mb-10">\n          <div class="em-10 bold">${product.label}</div>\n        </div><!--/.col-->\n        <div class="col-12 mb-10">\n          <div class="em-10">\n            <span class="bold">Размер:</span> ${product.size}\n          </div>\n        </div><!--/.col-->\n        <div class="col-12 mb-10">\n          <div class="em-10"><span class="bold">Количество:</span> ${product.count} шт</div>\n        </div><!--/.col-->\n        <div class="col-12 col-sm-auto">\n          <div class="em-10 bold">\n            Сумма: <span>${product.count * product.price}</span> <i class="fas fa-ruble-sign"></i>\n          </div>\n        </div><!--/.col-->\n      </div><!--/.row-->\n    </div><!--/.col-->\n    <div class="col-auto">\n      <div class="color-red em-11 em-sm-15 js-cart-item-remove" id-product="${product.id}">\n        <i class="fas fa-trash-alt"></i>\n      </div>\n    </div><!--/.col-->\n  </div><!--/.row-->\n</div><!--/.popup-cart-item-->`);
-    }
-    return results;
-  })();
+  itemsHtmlArr = [];
+// inputsHtmlArr = []
+  for (j = 0, len = productsArr.length; j < len; j++) {
+    product = productsArr[j];
+    totalPrice += product.count * product.price;
+    // inputsHtmlArr.push """
+    //   <input type="hidden" name="productId[]" value="#{product.id}">
+    // """
+    itemsHtmlArr.push(`<div class="popup-cart-item">\n  <div class="row align-items-center">\n    <div class="col-3">\n      <img class="img-fluid" src="${product.img}">\n    </div><!--/.col-->\n    <div class="col-7 col-sm">\n      <div class="row">\n        <div class="col-12 mb-10">\n          <div class="em-10 bold">${product.label}</div>\n        </div><!--/.col-->\n        <div class="col-12 mb-10">\n          <div class="em-10">\n            <span class="bold">Размер:</span> ${product.size}\n          </div>\n        </div><!--/.col-->\n        <div class="col-12 mb-10">\n          <div class="em-10"><span class="bold">Количество:</span> ${product.count} шт</div>\n        </div><!--/.col-->\n        <div class="col-12 col-sm-auto">\n          <div class="em-10 bold">\n            Сумма: <span>${product.count * product.price}</span> <i class="fas fa-ruble-sign"></i>\n          </div>\n        </div><!--/.col-->\n      </div><!--/.row-->\n    </div><!--/.col-->\n    <div class="col-auto">\n      <div class="color-red em-11 em-sm-15 js-cart-item-remove" id-product="${product.id}">\n        <i class="fas fa-trash-alt"></i>\n      </div>\n    </div><!--/.col-->\n  </div><!--/.row-->\n</div><!--/.popup-cart-item-->`);
+  }
   totalPriceHtml = `<div class="em-12 bold text-right mb-15">\n  Итого: ${totalPrice} <i class="fas fa-ruble-sign"></i>\n</div>`;
   $itemsView.html('');
-  for (j = 0, len = itemsHtmlArr.length; j < len; j++) {
-    itemHtml = itemsHtmlArr[j];
-    $itemsView.append(itemHtml);
-  }
-  return $itemsView.append(totalPriceHtml);
+  $itemsView.append(itemsHtmlArr);
+  $itemsView.append(totalPriceHtml);
+  // $inputsGroup.html ''
+  // $inputsGroup.append inputsHtmlArr
+  return true;
 };
+
+renderPopupOrder = function(store) {};
 
 // INIT
 // - - - - - - - - - - - - - - - - -
+$.fancybox.open({
+  src: '#popup-order',
+  type: 'inline'
+});
 
-// $.fancybox.open
-//   src: '#popup-cart'
-//   type: 'inline'
 //   opts:
 //     modal: on
 //     smallBtn: 'auto'
@@ -355,6 +359,31 @@ new jQueryMailer('.js-form-callback', {
       src: '#js-form-error'
     });
     return console.log('Error: /api/mail-price.json');
+  }
+});
+
+new jQueryMailer('.js-form-order', {
+  action: '/api/order.json',
+  sendingStr: '<img class="form-loader" src="/img/loader.svg">',
+  success: function($form, data) {
+    $form.trigger('reset');
+    $.fancybox.close(true);
+    $.fancybox.open({
+      src: '#js-form-success'
+    });
+    // if data.status? and data.status is 1
+    //   $form.trigger 'reset'
+    //   $.fancybox.close on
+    //   $.fancybox.open src: '#js-form-success'
+    // else
+    //   $.fancybox.open src: '#js-form-error'
+    return console.log(data);
+  },
+  error: function($form) {
+    $.fancybox.open({
+      src: '#js-form-error'
+    });
+    return console.log('Error: /api/order.json');
   }
 });
 
@@ -395,6 +424,24 @@ $('.js-popup-cart').on('click', function(e) {
     renderPopupCartItems(cartStore);
     showPopupCart();
   } else {
+    $.fancybox.open({
+      src: '#popup-cart-empty'
+    });
+  }
+  return false;
+});
+
+$('.js-popup-order').on('click', function(e) {
+  e.preventDefault();
+  if (cartStore.getCount()) {
+    renderPopupOrder(cartStore);
+    $.fancybox.close(true);
+    $.fancybox.open({
+      src: '#popup-order',
+      type: 'inline'
+    });
+  } else {
+    $.fancybox.close(true);
     $.fancybox.open({
       src: '#popup-cart-empty'
     });

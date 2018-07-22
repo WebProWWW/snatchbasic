@@ -30,6 +30,19 @@ class SiteController extends Controller
     }
   }
 
+  // public function actionOrder()
+  // {
+  //   if ($productIds = Yii::$app->request->post('productId')) {
+  //     $models = Product::findByIds($productIds);
+  //     try {
+  //       return $this->render('order', ['models' => $models]);
+  //     } catch (ViewNotFoundException $e) {
+  //       throw new NotFoundHttpException($e);
+  //     }
+  //   }
+  //   return $this->goHome();
+  // }
+
   public function actionCategory($cat_alias)
   {
     if ($category = Category::findByAlias($cat_alias)) {
@@ -68,4 +81,5 @@ class SiteController extends Controller
     }
     throw new NotFoundHttpException('The requested page does not exist.');
   }
+
 }

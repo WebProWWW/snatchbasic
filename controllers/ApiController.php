@@ -23,7 +23,7 @@ class ApiController extends Controller
       // 'corsFilter' => [
       //   'class' => Cors::class,
       //   'cors' => [
-      //     'Origin' => ['http://training.loc'],
+      //     'Origin' => ['http://localhost.loc'],
       //     'Access-Control-Request-Method' => ['POST', 'GET'],
       //     'Access-Control-Allow-Credentials' => true,
       //     'Access-Control-Max-Age' => 3600,
@@ -39,21 +39,17 @@ class ApiController extends Controller
         'class' => ContentNegotiator::class,
         // 'only' => [
         //   'test',
-        //   'lenta-histori',
-        //   'lenta-video',
-        //   'lenta-like',
-        //   'lenta-dislike',
-        //   'lenta-message',
-        //   'update',
-        //   'delete',
-        //   'new',
-        //   'lenta-new-job',
         // ],
         'formats' => [
           'application/json' => Response::FORMAT_JSON,
         ],
       ],
     ];
+  }
+
+  public function actionOrder()
+  {
+    return $request = Yii::$app->request->post();
   }
 
   public function actionMailPrice()

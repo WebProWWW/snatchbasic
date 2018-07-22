@@ -69,4 +69,11 @@ class Product extends ActiveRecord
     return ArrayHelper::map($all, 'id', 'label');
   }
 
+  // public static function findByIds($ids)
+  // {
+  //   return self::find()
+  //     ->where(['id'=>$ids])
+  //     ->all();
+  // }
+
 }

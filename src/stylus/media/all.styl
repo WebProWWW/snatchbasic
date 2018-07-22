@@ -55,7 +55,7 @@ a
   &-black
     resetLn(colorLBlack, colorLBlack)
   &-white
-    resetLn(white, darken(white, 18%))
+    resetLn(white, darken(white, 10%))
   &-red
     resetLn(colorRed, darken(colorRed, 20%))
 
@@ -403,18 +403,21 @@ a
 
 
 .cart-fixed
-  mpd(0, 13px 25px)
+  mpd(0, 13px 35px)
   position fixed
   top -150px
   right 0px
-  background colorYellow
+  background colorRed
   opacity 0
   z-index 10
   box-shadow 0 0 15px 0 alpha(black, 80%)
+  border-radius 0 0 0 4em
   transAll(atime)
   .btn-items
     position static
     display inline-block
+    background colorYellow
+    color black
   &.active
     display block
     top 0px
