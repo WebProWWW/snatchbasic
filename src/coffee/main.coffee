@@ -101,9 +101,9 @@ renderPopupOrder = (store) ->
 # INIT
 # - - - - - - - - - - - - - - - - -
 
-$.fancybox.open
-  src: '#popup-order'
-  type: 'inline'
+# $.fancybox.open
+#   src: '#popup-order'
+#   type: 'inline'
 #   opts:
 #     modal: on
 #     smallBtn: 'auto'
