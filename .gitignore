@@ -38,6 +38,6 @@ tests/_support/_generated
 shirt.sublime-project
 shirt.sublime-workspace
 /node_modules
-/config
-/models/User.php
-/public_html/index.php
+#/config
+#/models/User.php
+#/public_html/index.php
