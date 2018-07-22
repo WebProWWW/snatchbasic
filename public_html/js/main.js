@@ -5,7 +5,7 @@
 
 // START CLASS Cart
 // - - - - - - - - - - - - - - - - -
-var $, $cartStore, CartStorage, calculateCountPrice, cartStore, delay, jQueryMailer, renderPopupCartItems, showPopupCart, updateStoreCount;
+var $, $cartStore, $showOnScroll, CartStorage, calculateCountPrice, cartStore, delay, jQueryMailer, renderPopupCartItems, showPopupCart, updateStoreCount;
 
 CartStorage = (function() {
   class CartStorage {
@@ -533,4 +533,18 @@ $('.js-scrollto').on('click', function(e) {
     scrollTop: offsetTop
   });
   return false;
+});
+
+$showOnScroll = $('.js-showonscroll');
+
+$(window).on('scroll', function(e) {
+  var offset, scrollTopNum;
+  offset = 150;
+  scrollTopNum = $(this).scrollTop();
+  if (scrollTopNum > offset) {
+    $showOnScroll.addClass('active');
+  }
+  if (scrollTopNum < offset) {
+    return $showOnScroll.removeClass('active');
+  }
 });

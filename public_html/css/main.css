@@ -66,6 +66,23 @@ a:active {
   outline: none;
   color: #d1d1d1;
 }
+.ln-red {
+  color: #dd2a1b;
+  text-decoration: none;
+  outline: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  cursor: pointer;
+}
+.ln-red:active,
+.ln-red:focus,
+.ln-red:hover {
+  text-decoration: none;
+  outline: none;
+  color: #b12216;
+}
 .section {
   display: block;
   margin: 0;
@@ -225,6 +242,7 @@ a:active {
   font-weight: 400;
   font-size: 0.9em;
   line-height: 1;
+  text-align: center;
 }
 .form {
   display: block;
@@ -626,6 +644,30 @@ a:active {
 }
 .cart-detail {
   max-width: 1200px;
+}
+.cart-fixed {
+  display: block;
+  margin: 0;
+  padding: 13px 25px;
+  position: fixed;
+  top: -150px;
+  right: 0px;
+  background: #fcda00;
+  opacity: 0;
+  z-index: 10;
+  -webkit-box-shadow: 0 0 15px 0 rgba(0,0,0,0.8);
+          box-shadow: 0 0 15px 0 rgba(0,0,0,0.8);
+  -webkit-transition: 0.16s all ease-in-out;
+  transition: 0.16s all ease-in-out;
+}
+.cart-fixed .btn-items {
+  position: static;
+  display: inline-block;
+}
+.cart-fixed.active {
+  display: block;
+  top: 0px;
+  opacity: 1;
 }
 .select {
   display: -webkit-box;

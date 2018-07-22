@@ -275,3 +275,13 @@ $('.js-scrollto').on 'click', (e) ->
   if id is '#' then offsetTop = 0 else offsetTop = $(id).offset().top
   $('html:not(:animated),body:not(:animated)').animate scrollTop: offsetTop
   off
+
+
+$showOnScroll = $ '.js-showonscroll'
+
+
+$(window).on 'scroll', (e) ->
+  offset = 150
+  scrollTopNum = $(this).scrollTop()
+  $showOnScroll.addClass 'active' if scrollTopNum > offset
+  $showOnScroll.removeClass 'active' if scrollTopNum < offset

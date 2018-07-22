@@ -53,7 +53,7 @@ AppAsset::register($this);
       </div><!--/.col-->
 
       <div class="col-12 col-md-auto order-sm-5 order-md-3">
-        <a class="btn btn-yell js-popup-cart" data-fancybox href="#popup-cart">
+        <a class="btn btn-yell js-popup-cart" href="#popup-cart">
           <i class="fas fa-shopping-cart"></i>
           Корзина
           <span class="btn-items d-none js-store-count"></span>
@@ -105,6 +105,14 @@ AppAsset::register($this);
 
   </div><!--/.container-->
 </header>
+
+<div class="cart-fixed js-showonscroll">
+  <a class="ln-black js-popup-cart" href="#popup-cart">
+    <i class="fas fa-shopping-cart em-12"></i>
+    Корзина
+    <span class="btn-items d-none js-store-count"></span>
+  </a>
+</div>
 
 <?= $content ?>
 

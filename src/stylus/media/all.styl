@@ -56,6 +56,8 @@ a
     resetLn(colorLBlack, colorLBlack)
   &-white
     resetLn(white, darken(white, 18%))
+  &-red
+    resetLn(colorRed, darken(colorRed, 20%))
 
 
 .section
@@ -151,6 +153,7 @@ a
     font-weight 400
     font-size 0.9em
     line-height 1
+    text-align center
 
 
 .form
@@ -397,6 +400,25 @@ a
 .cart
   &-detail
     max-width 1200px
+
+
+.cart-fixed
+  mpd(0, 13px 25px)
+  position fixed
+  top -150px
+  right 0px
+  background colorYellow
+  opacity 0
+  z-index 10
+  box-shadow 0 0 15px 0 alpha(black, 80%)
+  transAll(atime)
+  .btn-items
+    position static
+    display inline-block
+  &.active
+    display block
+    top 0px
+    opacity 1
 
 
 .select
