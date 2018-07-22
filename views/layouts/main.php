@@ -228,13 +228,13 @@ AppAsset::register($this);
   <?= Html::beginForm(null, 'post', [
     'class' => 'form mt-20 js-form-order',
   ]) ?>
-    <div class="js-order-items">
+    <!-- <div class="js-order-items">
       <input type="hidden" name="order[1]['img']">
       <input type="hidden" name="order[1]['size']">
-    </div>
-    <input class="form-input" type="text" name="name" placeholder="Имя" validate1="text">
-    <input class="form-input js-mask" mask="+7-999-999-99-99" type="text" name="phone" placeholder="Телефон" validate1="text">
-    <input class="form-input" type="text" name="email" placeholder="Email" validate1="email">
+    </div> -->
+    <input class="form-input" type="text" name="name" placeholder="Имя" validate="text">
+    <input class="form-input js-mask" mask="+7-999-999-99-99" type="text" name="phone" placeholder="Телефон" validate="text">
+    <input class="form-input" type="text" name="email" placeholder="Email" validate="email">
     <button class="btn btn-yell form-btn js-form-progress" type="submit">Отправить</button>
   <?= Html::endForm() ?>
 </div>
