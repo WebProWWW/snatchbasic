@@ -1,0 +1,27 @@
+{
+  "name": "gulp-html-php",
+  "version": "1.0.0",
+  "description": "gulp html php",
+  "main": "Gulpfile.js",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "none"
+  ],
+  "author": "Timur Valiyev",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-coffee": "^3.0.2",
+    "gulp-header": "^2.0.5",
+    "gulp-include": "^2.3.1",
+    "gulp-refresh": "^1.1.0",
+    "gulp-stylus": "^2.7.0"
+  }
+}
