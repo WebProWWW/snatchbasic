@@ -39,5 +39,6 @@ shirt.sublime-project
 shirt.sublime-workspace
 /node_modules
 /config/db.php
+/config/params.php
 /models/User.php
 /public_html/index.php

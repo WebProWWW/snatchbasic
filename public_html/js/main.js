@@ -5,7 +5,7 @@
 
 // START CLASS Cart
 // - - - - - - - - - - - - - - - - -
-var $, $cartStore, $showOnScroll, CartStorage, calculateCountPrice, cartStore, delay, jQueryMailer, renderPopupCartItems, renderPopupOrder, showPopupCart, updateStoreCount;
+var $, $cartStore, $formOrderItems, $showOnScroll, CartStorage, calculateCountPrice, cartStore, delay, formCallBack, formOrder, jQueryMailer, renderPopupCartItems, renderPopupOrder, showPopupCart, updateStoreCount;
 
 CartStorage = (function() {
   class CartStorage {
@@ -133,7 +133,7 @@ jQueryMailer = (function() {
     constructor(selector, options) {
       this.onSubmit = this.onSubmit.bind(this);
       this.delay = this.delay.bind(this);
-      $.extend(this.settings, options);
+      this.settings = $.extend({}, this.settings, options);
       $(selector).bind('submit', this.onSubmit);
     }
 
@@ -314,7 +314,29 @@ renderPopupCartItems = function(store) {
   return true;
 };
 
-renderPopupOrder = function(store) {};
+renderPopupOrder = function(store, $itemsView) {
+  var i, itemsHtmlArr, product, productsArr, totalPrice, totalPriceHtml;
+  productsArr = store.getProducts();
+  totalPrice = 0;
+  itemsHtmlArr = (function() {
+    var j, len, results;
+    results = [];
+    for (i = j = 0, len = productsArr.length; j < len; i = ++j) {
+      product = productsArr[i];
+      totalPrice += product.count * product.price;
+      results.push(`<input type="hidden" name="order[${i}][id]" value="${product.id}">\n<input type="hidden" name="order[${i}][img]" value="${product.img}">\n<input type="hidden" name="order[${i}][label]" value="${product.label}">\n<input type="hidden" name="order[${i}][count]" value="${product.count}">\n<input type="hidden" name="order[${i}][price]" value="${product.price}">\n<input type="hidden" name="order[${i}][summ]" value="${product.count * product.price}">\n<input type="hidden" name="order[${i}][size]" value="${product.size}">`);
+    }
+    return results;
+  })();
+  totalPriceHtml = `<input type="hidden" name="total" value="${totalPrice}">`;
+  $itemsView.html('');
+  $itemsView.append(itemsHtmlArr);
+  return $itemsView.append(totalPriceHtml);
+};
+
+// JQ OBJECTS
+// - - - - - - - - - - - - - - - - -
+$formOrderItems = $('.js-form-order-items');
 
 // INIT
 // - - - - - - - - - - - - - - - - -
@@ -333,10 +355,12 @@ $cartStore = $(cartStore);
 
 updateStoreCount(cartStore.getCount());
 
-// cartStore.clearProducts()
-// cartStore.addProduct(5, 'XXL', 1)
-// cartStore.getProducts()
-new jQueryMailer('.js-form-callback', {
+// renderPopupOrder cartStore, $formOrderItems
+
+// $.fancybox.open
+//   src: '#popup-order'
+//   type: 'inline'
+formCallBack = new jQueryMailer('.js-form-callback', {
   action: '/api/mail-price.json',
   sendingStr: '<img class="form-loader" src="/img/loader.svg">',
   success: function($form, data) {
@@ -361,21 +385,22 @@ new jQueryMailer('.js-form-callback', {
   }
 });
 
-new jQueryMailer('.js-form-order', {
+formOrder = new jQueryMailer('.js-form-order', {
   action: '/api/order.json',
   sendingStr: '<img class="form-loader" src="/img/loader.svg">',
   success: function($form, data) {
-    $form.trigger('reset');
-    $.fancybox.close(true);
-    $.fancybox.open({
-      src: '#js-form-success'
-    });
-    // if data.status? and data.status is 1
-    //   $form.trigger 'reset'
-    //   $.fancybox.close on
-    //   $.fancybox.open src: '#js-form-success'
-    // else
-    //   $.fancybox.open src: '#js-form-error'
+    if ((data.status != null) && data.status === 1) {
+      $form.trigger('reset');
+      $.fancybox.close(true);
+      $.fancybox.open({
+        src: '#js-form-success'
+      });
+      cartStore.clearProducts();
+    } else {
+      $.fancybox.open({
+        src: '#js-form-error'
+      });
+    }
     return console.log(data);
   },
   error: function($form) {
@@ -433,7 +458,7 @@ $('.js-popup-cart').on('click', function(e) {
 $('.js-popup-order').on('click', function(e) {
   e.preventDefault();
   if (cartStore.getCount()) {
-    renderPopupOrder(cartStore);
+    renderPopupOrder(cartStore, $formOrderItems);
     $.fancybox.close(true);
     $.fancybox.open({
       src: '#popup-order',

@@ -3,6 +3,7 @@
 
 
 
+
 # FUNCTIONS
 # - - - - - - - - - - - - - - - - -
 
@@ -92,10 +93,36 @@ renderPopupCartItems = (store) ->
 
 
 
-renderPopupOrder = (store) ->
+renderPopupOrder = (store, $itemsView) ->
+  productsArr = store.getProducts()
+  totalPrice = 0
+  itemsHtmlArr = for product, i in productsArr
+    totalPrice += product.count * product.price
+    """
+      <input type="hidden" name="order[#{i}][id]" value="#{product.id}">
+      <input type="hidden" name="order[#{i}][img]" value="#{product.img}">
+      <input type="hidden" name="order[#{i}][label]" value="#{product.label}">
+      <input type="hidden" name="order[#{i}][count]" value="#{product.count}">
+      <input type="hidden" name="order[#{i}][price]" value="#{product.price}">
+      <input type="hidden" name="order[#{i}][summ]" value="#{product.count * product.price}">
+      <input type="hidden" name="order[#{i}][size]" value="#{product.size}">
+    """
+  totalPriceHtml = """
+    <input type="hidden" name="total" value="#{totalPrice}">
+  """
+  $itemsView.html ''
+  $itemsView.append itemsHtmlArr
+  $itemsView.append totalPriceHtml
 
 
 
+
+
+
+# JQ OBJECTS
+# - - - - - - - - - - - - - - - - -
+
+$formOrderItems = $ '.js-form-order-items'
 
 
 # INIT
@@ -114,12 +141,16 @@ cartStore = new CartStorage
 $cartStore = $ cartStore
 
 updateStoreCount cartStore.getCount()
-# cartStore.clearProducts()
-# cartStore.addProduct(5, 'XXL', 1)
-# cartStore.getProducts()
 
 
-new jQueryMailer '.js-form-callback',
+# renderPopupOrder cartStore, $formOrderItems
+
+# $.fancybox.open
+#   src: '#popup-order'
+#   type: 'inline'
+
+
+formCallBack = new jQueryMailer '.js-form-callback',
   action: '/api/mail-price.json'
   sendingStr: '<img class="form-loader" src="/img/loader.svg">'
   success: ($form, data) ->
@@ -135,19 +166,18 @@ new jQueryMailer '.js-form-callback',
     console.log 'Error: /api/mail-price.json'
 
 
-new jQueryMailer '.js-form-order',
+
+formOrder = new jQueryMailer '.js-form-order',
   action: '/api/order.json'
   sendingStr: '<img class="form-loader" src="/img/loader.svg">'
   success: ($form, data) ->
-    $form.trigger 'reset'
-    $.fancybox.close on
-    $.fancybox.open src: '#js-form-success'
-    # if data.status? and data.status is 1
-    #   $form.trigger 'reset'
-    #   $.fancybox.close on
-    #   $.fancybox.open src: '#js-form-success'
-    # else
-    #   $.fancybox.open src: '#js-form-error'
+    if data.status? and data.status is 1
+      $form.trigger 'reset'
+      $.fancybox.close on
+      $.fancybox.open src: '#js-form-success'
+      cartStore.clearProducts()
+    else
+      $.fancybox.open src: '#js-form-error'
     console.log data
   error: ($form) ->
     $.fancybox.open src: '#js-form-error'
@@ -202,7 +232,7 @@ $('.js-popup-cart').on 'click', (e) ->
 $('.js-popup-order').on 'click', (e) ->
   e.preventDefault()
   if cartStore.getCount()
-    renderPopupOrder cartStore
+    renderPopupOrder cartStore, $formOrderItems
     $.fancybox.close on
     $.fancybox.open
       src: '#popup-order'

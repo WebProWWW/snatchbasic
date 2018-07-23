@@ -13,7 +13,7 @@ class jQueryMailer
   sendingCurrentHtml: ''
 
   constructor: (selector, options) ->
-    $.extend @settings, options
+    @settings = $.extend {}, @settings, options
     $(selector).bind 'submit', @onSubmit
 
   onSubmit: (e) =>

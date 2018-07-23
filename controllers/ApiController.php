@@ -10,6 +10,8 @@ use yii\web\Response;
 use yii\filters\Cors;
 use yii\filters\VerbFilter;
 use yii\filters\ContentNegotiator;
+use RetailCrm\ApiClient;
+use RetailCrm\Exception\CurlException;
 
 
 class ApiController extends Controller
@@ -47,25 +49,83 @@ class ApiController extends Controller
     ];
   }
 
+
+
+
   public function actionOrder()
   {
-    return $request = Yii::$app->request->post();
+    $outData = ['status'=>0];
+    $request = Yii::$app->request;
+    // if (!$request->isPost) return $outData;
+
+    $name = $request->post('name', '');
+    $email = $request->post('email', '');
+    $phone = $request->post('phone', '');
+    $orderArr = $request->post('order', []);
+    $items = [];
+    foreach ($orderArr as $order) {
+      array_push($items, [
+        'initialPrice' => $order['price'],
+        'quantity' => $order['count'],
+        'productName' => $order['label'],
+        'properties' => [
+          ['name'=> 'Размер', 'value'=> $order['size']],
+          ['name'=> 'Изображение', 'value'=> 'http://snatchbasic.ru'.$order['img']],
+        ],
+      ]);
+    }
+    sleep(2);
+    if ($this->crmOrder($name, $phone, $email, $formType, $items)) {
+      $outData['status'] = 1;
+    }
+    return $outData;
   }
+
+
+
 
   public function actionMailPrice()
   {
     $outData = ['status'=>0];
     $request = Yii::$app->request;
-
-    $name = $request->post('name', false);
-    $email = $request->post('email', false);
-    $phone = $request->post('phone', false);
-
-    if ($name && $email && $phone) {
+    if (!$request->isPost) return $outData;
+    $name = $request->post('name', '');
+    $email = $request->post('email', '');
+    $phone = $request->post('phone', '');
+    sleep(2);
+    if ($this->crmOrder($name, $phone, $email, 'Отправить прайс', [])) {
       $outData['status'] = 1;
     }
-    sleep(1);
     return $outData;
   }
+
+
+
+
+  private function crmOrder($name, $phone, $email, $formType, $items)
+  {
+    $params = Yii::$app->params;
+    $crmApiKey = $params['crmApiKey'];
+    $crmApiUrl = $params['crmApiUrl'];
+    $client = new ApiClient($crmApiUrl, $crmApiKey, ApiClient::V5, 'snatchbasic');
+    try {
+      $response = $client->request->ordersCreate([
+        'firstName' => $name,
+        // 'lastName' => '',
+        'phone' => $phone,
+        'email' => $email,
+        'customFields' => [
+          'form_type' => $formType,
+        ],
+        'items' => $items,
+      ]);
+    } catch (CurlException $e) {
+      $outData['status'] = $e->getMessage();
+      return false;
+    }
+    if ($response->isSuccessful() && 201 === $response->getStatusCode()) return true;
+    return false;
+  }
+
 
 }
