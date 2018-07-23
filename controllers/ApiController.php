@@ -75,7 +75,7 @@ class ApiController extends Controller
       ]);
     }
     sleep(2);
-    if ($this->crmOrder($name, $phone, $email, $formType, $items)) {
+    if ($this->crmOrder($name, $phone, $email, 'Купить', $items)) {
       $outData['status'] = 1;
     }
     return $outData;
