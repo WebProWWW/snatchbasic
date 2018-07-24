@@ -58,6 +58,11 @@ renderPopupCartItems = (store) ->
             </div><!--/.col-->
             <div class="col-12 mb-10">
               <div class="em-10">
+                <span class="bold">Цвет:</span> #{product.color}
+              </div>
+            </div><!--/.col-->
+            <div class="col-12 mb-10">
+              <div class="em-10">
                 <span class="bold">Размер:</span> #{product.size}
               </div>
             </div><!--/.col-->
@@ -106,6 +111,7 @@ renderPopupOrder = (store, $itemsView) ->
       <input type="hidden" name="order[#{i}][price]" value="#{product.price}">
       <input type="hidden" name="order[#{i}][summ]" value="#{product.count * product.price}">
       <input type="hidden" name="order[#{i}][size]" value="#{product.size}">
+      <input type="hidden" name="order[#{i}][color]" value="#{product.color}">
     """
   totalPriceHtml = """
     <input type="hidden" name="total" value="#{totalPrice}">
@@ -335,6 +341,7 @@ $('body').on 'click', '.js-add-btn', (e) ->
     price : Number $detail.find('.js-detail-total').attr 'data'
     count : Number $detail.find('.js-counter-input').val()
     size : String $detail.find('.js-select').attr 'data'
+    color: String $detail.find('.js-detail-color').html()
     img : String $detail.find('.js-detail-img').attr 'src'
     id : Number $detail.attr 'id-product'
     label: String $detail.find('.js-detail-label').html()

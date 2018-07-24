@@ -70,6 +70,7 @@ class ApiController extends Controller
         'productName' => $order['label'],
         'properties' => [
           ['name'=> 'Размер', 'value'=> $order['size']],
+          ['name'=> 'Цвет', 'value'=> $order['color']],
           ['name'=> 'Изображение', 'value'=> 'http://snatchbasic.ru'.$order['img']],
         ],
       ]);

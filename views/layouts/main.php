@@ -35,7 +35,7 @@ AppAsset::register($this);
   <meta name="msapplication-TileColor" content="#FFFFFF">
   <meta name="msapplication-TileImage" content="<?= $urlBase ?>/mstile-144x144.png">
 
-
+  <?php if (!YII_ENV_DEV): ?>
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -43,15 +43,19 @@ AppAsset::register($this);
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-W3JGB3W');</script>
   <!-- End Google Tag Manager -->
+  <?php endif ?>
 
 </head>
 <body>
-<?php $this->beginBody() ?>
 
+<?php if (!YII_ENV_DEV): ?>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W3JGB3W"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+<?php endif ?>
+
+<?php $this->beginBody() ?>
 
 <header class="header">
   <div class="container">

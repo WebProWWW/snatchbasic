@@ -303,7 +303,7 @@ renderPopupCartItems = function(store) {
     // inputsHtmlArr.push """
     //   <input type="hidden" name="productId[]" value="#{product.id}">
     // """
-    itemsHtmlArr.push(`<div class="popup-cart-item">\n  <div class="row align-items-center">\n    <div class="col-3">\n      <img class="img-fluid" src="${product.img}">\n    </div><!--/.col-->\n    <div class="col-7 col-sm">\n      <div class="row">\n        <div class="col-12 mb-10">\n          <div class="em-10 bold">${product.label}</div>\n        </div><!--/.col-->\n        <div class="col-12 mb-10">\n          <div class="em-10">\n            <span class="bold">Размер:</span> ${product.size}\n          </div>\n        </div><!--/.col-->\n        <div class="col-12 mb-10">\n          <div class="em-10"><span class="bold">Количество:</span> ${product.count} шт</div>\n        </div><!--/.col-->\n        <div class="col-12 col-sm-auto">\n          <div class="em-10 bold">\n            Сумма: <span>${product.count * product.price}</span> <i class="fas fa-ruble-sign"></i>\n          </div>\n        </div><!--/.col-->\n      </div><!--/.row-->\n    </div><!--/.col-->\n    <div class="col-auto">\n      <div class="color-red em-11 em-sm-15 js-cart-item-remove" id-product="${product.id}">\n        <i class="fas fa-trash-alt"></i>\n      </div>\n    </div><!--/.col-->\n  </div><!--/.row-->\n</div><!--/.popup-cart-item-->`);
+    itemsHtmlArr.push(`<div class="popup-cart-item">\n  <div class="row align-items-center">\n    <div class="col-3">\n      <img class="img-fluid" src="${product.img}">\n    </div><!--/.col-->\n    <div class="col-7 col-sm">\n      <div class="row">\n        <div class="col-12 mb-10">\n          <div class="em-10 bold">${product.label}</div>\n        </div><!--/.col-->\n        <div class="col-12 mb-10">\n          <div class="em-10">\n            <span class="bold">Цвет:</span> ${product.color}\n          </div>\n        </div><!--/.col-->\n        <div class="col-12 mb-10">\n          <div class="em-10">\n            <span class="bold">Размер:</span> ${product.size}\n          </div>\n        </div><!--/.col-->\n        <div class="col-12 mb-10">\n          <div class="em-10"><span class="bold">Количество:</span> ${product.count} шт</div>\n        </div><!--/.col-->\n        <div class="col-12 col-sm-auto">\n          <div class="em-10 bold">\n            Сумма: <span>${product.count * product.price}</span> <i class="fas fa-ruble-sign"></i>\n          </div>\n        </div><!--/.col-->\n      </div><!--/.row-->\n    </div><!--/.col-->\n    <div class="col-auto">\n      <div class="color-red em-11 em-sm-15 js-cart-item-remove" id-product="${product.id}">\n        <i class="fas fa-trash-alt"></i>\n      </div>\n    </div><!--/.col-->\n  </div><!--/.row-->\n</div><!--/.popup-cart-item-->`);
   }
   totalPriceHtml = `<div class="em-12 bold text-right mb-15">\n  Итого: ${totalPrice} <i class="fas fa-ruble-sign"></i>\n</div>`;
   $itemsView.html('');
@@ -324,7 +324,7 @@ renderPopupOrder = function(store, $itemsView) {
     for (i = j = 0, len = productsArr.length; j < len; i = ++j) {
       product = productsArr[i];
       totalPrice += product.count * product.price;
-      results.push(`<input type="hidden" name="order[${i}][id]" value="${product.id}">\n<input type="hidden" name="order[${i}][img]" value="${product.img}">\n<input type="hidden" name="order[${i}][label]" value="${product.label}">\n<input type="hidden" name="order[${i}][count]" value="${product.count}">\n<input type="hidden" name="order[${i}][price]" value="${product.price}">\n<input type="hidden" name="order[${i}][summ]" value="${product.count * product.price}">\n<input type="hidden" name="order[${i}][size]" value="${product.size}">`);
+      results.push(`<input type="hidden" name="order[${i}][id]" value="${product.id}">\n<input type="hidden" name="order[${i}][img]" value="${product.img}">\n<input type="hidden" name="order[${i}][label]" value="${product.label}">\n<input type="hidden" name="order[${i}][count]" value="${product.count}">\n<input type="hidden" name="order[${i}][price]" value="${product.price}">\n<input type="hidden" name="order[${i}][summ]" value="${product.count * product.price}">\n<input type="hidden" name="order[${i}][size]" value="${product.size}">\n<input type="hidden" name="order[${i}][color]" value="${product.color}">`);
     }
     return results;
   })();
@@ -580,6 +580,7 @@ $('body').on('click', '.js-add-btn', function(e) {
     price: Number($detail.find('.js-detail-total').attr('data')),
     count: Number($detail.find('.js-counter-input').val()),
     size: String($detail.find('.js-select').attr('data')),
+    color: String($detail.find('.js-detail-color').html()),
     img: String($detail.find('.js-detail-img').attr('src')),
     id: Number($detail.attr('id-product')),
     label: String($detail.find('.js-detail-label').html())

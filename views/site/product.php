@@ -24,7 +24,11 @@ $this->title = $category->label;
             <div class="cart">
               <img class="cart-img" src="<?= $product->img ?>">
               <h4 class="cart-title"><?= $product->label ?></h4>
-              <p class="cart-desc"><?= $category->desc ?></p>
+              <p class="cart-desc">
+                Цвет: <?= $product->desc ?>
+                <br>
+                <?= $category->desc ?>
+              </p>
               <p class="cart-price">
                 от <?= $product->price ?> <i class="cart-rub fas fa-ruble-sign"></i>
               </p>

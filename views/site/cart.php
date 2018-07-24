@@ -12,7 +12,11 @@
     <div class="col-12 col-sm-8 col-md-7">
       <!-- <a class="btn btn-yell bold js-prevent" href="#"><i class="fas fa-rocket"></i> БЫСТРЫЙ ЗАКАЗ</a> -->
       <h3 class="itext em-12 bold js-detail-label"><?= $model->label ?></h3>
-      <p class="itext"><?= $model->category->desc ?></p>
+      <p class="itext">
+        Цвет: <span class="js-detail-color"><?= $model->desc ?></span>
+        <br>
+        <?= $model->category->desc ?>
+      </p>
       <p class="itext bold color-green"><i class="fas fa-check"></i> В наличии</p>
       <?= $model->category->size->group ?>
       <div class="d-flex align-items-center justify-content-between">

@@ -14,13 +14,13 @@ class AppAsset extends AssetBundle
         'lib/fontawesome/css/all.css',
         'lib/bxslider/dist/jquery.bxslider.min.css',
         'lib/fancybox/dist/jquery.fancybox.css',
-        'css/main.css?v=131',
+        'css/main.css?v=132',
     ];
     public $js = [
         'lib/bxslider/dist/jquery.bxslider.min.js',
         'lib/fancybox/dist/jquery.fancybox.js',
         'lib/jquery.maskedinput.min.js',
-        'js/main.js?v=131'
+        'js/main.js?v=132'
     ];
     public $depends = [
         // 'yii\web\YiiAsset',
