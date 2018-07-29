@@ -86,19 +86,19 @@ $this->title = 'Футболки и толстовки из органическ
     <div class="row">
       <div class="col-6 col-md-3">
         <img class="iicon" width="100" src="/img/iphone6s.jpg">
-        <p class="itext text-center">40 000 баллов<br><span class="bold">iPhone 6s</span></p>
+        <p class="itext text-center">25 000 баллов<br><span class="bold">iPhone 6s</span></p>
       </div>
       <div class="col-6 col-md-3">
         <img class="iicon" width="100" src="/img/iphone7.jpg">
-        <p class="itext text-center">70 000 баллов<br><span class="bold">iPhone 7</span></p>
+        <p class="itext text-center">45 000 баллов<br><span class="bold">iPhone 7</span></p>
       </div>
       <div class="col-6 col-md-3">
         <img class="iicon" width="100" src="/img/iphone8.jpg">
-        <p class="itext text-center">100 000 баллов<br><span class="bold">iPhone 8</span></p>
+        <p class="itext text-center">65 000 баллов<br><span class="bold">iPhone 8</span></p>
       </div>
       <div class="col-6 col-md-3">
         <img class="iicon" width="100" src="/img/iphonex.jpg">
-        <p class="itext text-center">200 000 баллов<br><span class="bold">iPhone X</span></p>
+        <p class="itext text-center">85 000 баллов<br><span class="bold">iPhone X</span></p>
       </div>
     </div><!--/.row-->
 
