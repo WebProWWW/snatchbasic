@@ -19,6 +19,7 @@ use yii\helpers\ArrayHelper;
  * @property int $order Сортировка
  * @property int $size_id Размеры
  * @property string $size_table Таблица размеров
+ * @property string $part_count Количество в партии
  *
  * @property Category $parent
  * @property Category[] $categories
@@ -42,6 +43,8 @@ class Category extends ActiveRecord
 			['alias', 'required'],
 			['alias', 'unique', 'targetClass' => self::class, 'message' => 'Указанный псевдоним уже занят.'],
 			['alias', 'string', 'max' => 255],
+
+			['part_count', 'string', 'max' => 255],
 
 			['size_table', 'string', 'max' => 255],
 
@@ -71,6 +74,7 @@ class Category extends ActiveRecord
 			'order' => 'Сортировка',
 			'size_id' => 'Размеры',
 			'size_table' => 'Таблица размеров',
+			'part_count' => 'Количество в партии',
 		];
 	}
 

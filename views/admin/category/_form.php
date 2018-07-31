@@ -20,6 +20,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'from_price')->textInput() ?>
 
+    <?= $form->field($model, 'part_count')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'img')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'size_table')->textInput(['maxlength' => true]) ?>

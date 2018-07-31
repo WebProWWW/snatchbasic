@@ -30,7 +30,7 @@ $this->title = $category->label;
                 <?= $category->desc ?>
               </p>
               <p class="cart-price">
-                от <?= $product->price ?> <i class="cart-rub fas fa-ruble-sign"></i>
+                <?= $category->from_price ?> <i class="cart-rub fas fa-ruble-sign"></i>
               </p>
               <a
                 class="btn btn-yell bold js-product-btn"

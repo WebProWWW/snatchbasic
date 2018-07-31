@@ -30,10 +30,12 @@
           </span>
         </div>
         <p class="cart-price">
-          <span class="js-detail-total" data="<?= $model->price ?>"><?= $model->price ?></span> <i class="cart-rub fas fa-ruble-sign"></i>
+          <span class="js-detail-total" data="<?= $model->category->from_price ?>"><?= $model->category->from_price ?></span> <i class="cart-rub fas fa-ruble-sign"></i>
         </p>
       </div>
+      <p class="itext text-right"><?= $model->category->parent->part_count ?></p>
       <a class="btn btn-red w-md-50 ml-auto js-add-btn" href="#"><i class="fas fa-shopping-cart"></i> В КОРЗИНУ</a>
+      <p class="itext">Доставка до транспортной компании от 200 штук - бесплатно</p>
       <?php if ($model->category->size_table): ?>
         <img class="img-fluid mb-15" src="<?= $model->category->size_table ?>">
       <?php endif ?>
