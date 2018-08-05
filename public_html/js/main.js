@@ -541,36 +541,32 @@ $('body').on('click', '.js-counter-btn', function(e) {
   dataNum = Number($this.attr('data'));
   inputNum = Number($input.val());
   newVal = inputNum + dataNum;
-  if (newVal < 1 || isNaN(newVal)) {
-    newVal = 1;
+  if (newVal < 50 || isNaN(newVal)) {
+    newVal = 50;
   }
   $input.val(newVal);
   calculateCountPrice($parentDetail, newVal);
   return false;
 });
 
-$('body').on('focusout', '.js-counter-input', function(e) {
+$('body').on('focusout keyup', '.js-counter-input', function(e) {
   var $parentDetail, $this, val;
   $this = $(this);
   val = $this.val();
   $parentDetail = $this.closest('.js-detail');
-  if (val.length < 1 || val < 1 || isNaN(val)) {
-    $this.val(1);
+  if (val.length < 1 || val < 50 || isNaN(val)) {
+    $this.val(50);
   }
   return calculateCountPrice($parentDetail, Number($this.val()));
 });
 
-$('body').on('keyup', '.js-counter-input', function(e) {
-  var $parentDetail, $this, val;
-  $this = $(this);
-  val = $this.val();
-  $parentDetail = $this.closest('.js-detail');
-  if (val.length < 1 || val < 1 || isNaN(val)) {
-    $this.val(1);
-  }
-  return calculateCountPrice($parentDetail, Number($this.val()));
-});
-
+// $('body').on 'keyup', '.js-counter-input', (e) ->
+//   $this = $ this
+//   val = $this.val()
+//   $parentDetail = $this.closest '.js-detail'
+//   if val.length < 1 or val < 1 or isNaN val
+//     $this.val 1
+//   calculateCountPrice $parentDetail, Number $this.val()
 $('body').on('click', '.js-add-btn', function(e) {
   var $detail, newProduct;
   e.preventDefault();

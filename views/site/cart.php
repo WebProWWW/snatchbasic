@@ -24,13 +24,13 @@
           <span class="counter-btn js-counter-btn" data="-1">
             <i class="fas fa-minus"></i>
           </span>
-          <input class="counter-input js-counter-input" type="text" value="1">
+          <input class="counter-input js-counter-input" type="text" value="50">
           <span class="counter-btn js-counter-btn" data="1">
             <i class="fas fa-plus"></i>
           </span>
         </div>
         <p class="cart-price">
-          <span class="js-detail-total" data="<?= $model->category->from_price ?>"><?= $model->category->from_price ?></span> <i class="cart-rub fas fa-ruble-sign"></i>
+          <span class="js-detail-total" data="<?= $model->category->from_price ?>"><?= (int) $model->category->from_price * 50 ?></span> <i class="cart-rub fas fa-ruble-sign"></i>
         </p>
       </div>
       <p class="itext text-right"><?= $model->category->parent->part_count ?></p>
