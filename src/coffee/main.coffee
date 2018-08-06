@@ -328,7 +328,7 @@ $('body').on 'keyup', '.js-counter-input', (e) ->
   val = $this.val()
   $parentDetail = $this.closest '.js-detail'
   if val.length > 2 and val < 50 or isNaN val
-    $this.val 1
+    $this.val 50
   calculateCountPrice $parentDetail, Number $this.val()
 
 

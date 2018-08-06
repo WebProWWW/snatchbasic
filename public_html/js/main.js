@@ -566,7 +566,7 @@ $('body').on('keyup', '.js-counter-input', function(e) {
   val = $this.val();
   $parentDetail = $this.closest('.js-detail');
   if (val.length > 2 && val < 50 || isNaN(val)) {
-    $this.val(1);
+    $this.val(50);
   }
   return calculateCountPrice($parentDetail, Number($this.val()));
 });
