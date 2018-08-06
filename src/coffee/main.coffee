@@ -313,7 +313,7 @@ $('body').on 'click', '.js-counter-btn', (e) ->
   off
 
 
-$('body').on 'focusout keyup', '.js-counter-input', (e) ->
+$('body').on 'focusout', '.js-counter-input', (e) ->
   $this = $ this
   val = $this.val()
   $parentDetail = $this.closest '.js-detail'
@@ -323,13 +323,13 @@ $('body').on 'focusout keyup', '.js-counter-input', (e) ->
 
 
 
-# $('body').on 'keyup', '.js-counter-input', (e) ->
-#   $this = $ this
-#   val = $this.val()
-#   $parentDetail = $this.closest '.js-detail'
-#   if val.length < 1 or val < 1 or isNaN val
-#     $this.val 1
-#   calculateCountPrice $parentDetail, Number $this.val()
+$('body').on 'keyup', '.js-counter-input', (e) ->
+  $this = $ this
+  val = $this.val()
+  $parentDetail = $this.closest '.js-detail'
+  if val.length > 2 and val < 50 or isNaN val
+    $this.val 1
+  calculateCountPrice $parentDetail, Number $this.val()
 
 
 
