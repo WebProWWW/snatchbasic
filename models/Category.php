@@ -140,6 +140,7 @@ class Category extends ActiveRecord
 			->where(['parent_id' => NULL])
 			// ->select(['id', 'label', 'alias'])
 			->orderBy('order')
+			->with('categories')
 			->all();
 	}
 
@@ -147,7 +148,7 @@ class Category extends ActiveRecord
 	{
 		return static::find()
 			->where(['parent_id' => $this->id])
-			// ->with('categories')
+			->with('categories')
 			// ->with('parent')
 			->orderBy('order')
 			->all();
@@ -158,7 +159,7 @@ class Category extends ActiveRecord
 		return static::find()
 			->where(['alias' => $alias])
 			// ->with('categories')
-			->with('products')
+			// ->with('products')
 			->with('parent')
 			// ->with('size')
 			->one();
