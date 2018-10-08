@@ -164,4 +164,11 @@ class Category extends ActiveRecord
 			// ->with('size')
 			->one();
 	}
+
+	public function getOldPrice()
+	{
+		$price = (int) $this->from_price;
+		$oldPrice = $price * 2;
+		return $oldPrice;
+	}
 }

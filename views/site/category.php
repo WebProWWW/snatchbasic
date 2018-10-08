@@ -26,7 +26,9 @@ $this->title = $category->label;
               <h4 class="cart-title"><?= $catChild->label ?></h4>
               <p class="cart-desc"><?= $catChild->desc ?></p>
               <p class="cart-price">
-                от <?= $catChild->from_price ?> <i class="cart-rub fas fa-ruble-sign"></i>
+                от <span class="cart-price-old"><?= $catChild->oldPrice ?></span>
+                <?= $catChild->from_price ?>
+                <i class="cart-rub fas fa-ruble-sign"></i>
               </p>
               <a class="btn btn-yell bold" href="<?= Url::to([
                 'site/product',
