@@ -11,13 +11,32 @@
     </div><!--/.col-->
     <div class="col-12 col-sm-8 col-md-7">
       <!-- <a class="btn btn-yell bold js-prevent" href="#"><i class="fas fa-rocket"></i> БЫСТРЫЙ ЗАКАЗ</a> -->
-      <h3 class="itext em-12 bold js-detail-label"><?= $model->label ?></h3>
-      <p class="itext">
-        Цвет: <span class="js-detail-color"><?= $model->desc ?></span>
-        <br>
-        <?= $model->category->desc ?>
-      </p>
-      <p class="itext bold color-green"><i class="fas fa-check"></i> В наличии</p>
+      <div class="row justify-content-between">
+        <div class="col-12 col-lg-auto">
+          <h3 class="itext em-12 bold js-detail-label"><?= $model->label ?></h3>
+          <p class="itext">
+            Цвет: <span class="js-detail-color"><?= $model->desc ?></span>
+            <br>
+            <?= $model->category->desc ?>
+          </p>
+          <p class="itext bold color-green"><i class="fas fa-check"></i> В наличии</p>
+        </div><!--/.col-->
+        <div class="col-12 col-lg-auto">
+          <h3 class="itext em-12 bold js-detail-label">Цена одной футболки</h3>
+          <p class="cart-price text-left mb-0">
+            <?= $model->category->from_price ?> <i class="cart-rub fas fa-ruble-sign em-9"></i>
+            &nbsp;
+            <span class="cart-price-old color-gray">
+              <?= $model->category->oldPrice ?> <i class="cart-rub fas fa-ruble-sign em-9"></i>
+            </span>
+          </p>
+          <p class="text color-red">
+            Ваша экономия
+            <span class="bold"><?= $model->category->priceDiff ?></span>
+            <i class="cart-rub fas fa-ruble-sign em-9"></i>
+          </p>
+        </div><!--/.col-->
+      </div><!--/.row-->
       <?= $model->category->size->group ?>
       <div class="d-flex align-items-center justify-content-between">
         <div class="counter js-counter">
@@ -30,7 +49,7 @@
           </span>
         </div>
         <p class="cart-price">
-          <span class="js-detail-total" data="<?= $model->category->from_price ?>"><?= (int) $model->category->from_price * 50 ?></span> <i class="cart-rub fas fa-ruble-sign"></i>
+          <span class="js-detail-total" data="<?= $model->category->from_price ?>"><?= (int) $model->category->from_price * 50 ?></span> <i class="cart-rub fas fa-ruble-sign em-9"></i>
         </p>
       </div>
       <p class="itext text-right"><?= $model->category->parent->part_count ?></p>

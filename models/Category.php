@@ -171,4 +171,11 @@ class Category extends ActiveRecord
 		$oldPrice = $price * 2;
 		return $oldPrice;
 	}
+
+	public function getPriceDiff()
+	{
+		$price = (int) $this->from_price;
+		$priceOld = (int) $this->getOldPrice();
+		return $priceOld - $price;
+	}
 }
