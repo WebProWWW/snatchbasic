@@ -22,7 +22,7 @@
           <p class="itext bold color-green"><i class="fas fa-check"></i> В наличии</p>
         </div><!--/.col-->
         <div class="col-12 col-lg-auto">
-          <h3 class="itext em-12 bold js-detail-label">Цена одной футболки</h3>
+          <h3 class="itext em-12 bold js-detail-label">Цена</h3>
           <p class="cart-price text-left mb-0">
             <?= $model->category->from_price ?> <i class="cart-rub fas fa-ruble-sign em-9"></i>
             &nbsp;
