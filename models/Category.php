@@ -168,7 +168,7 @@ class Category extends ActiveRecord
 	public function getOldPrice()
 	{
 		$price = (int) $this->from_price;
-		$oldPrice = $price * 2;
+		$oldPrice = round($price + $price * 0.5);
 		return $oldPrice;
 	}
 
